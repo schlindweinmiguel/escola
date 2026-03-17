@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reclamação</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
     <h2>Registrar Reclamação</h2>
-    <form method="POST" enctype="multipart/form-data">
+
+    <form id="reclamacao-form" method="POST" enctype="multipart/form-data">
         <label for="descricao">Descrição do Problema:</label>
         <textarea id="descricao" name="descricao" required></textarea>
-        
+
         <label for="imagem">Foto (opcional):</label>
         <input type="file" id="imagem" name="imagem">
-        
+
         <button type="submit">Enviar Reclamação</button>
     </form>
-    <br>
-    <a href="/logout">Sair</a>
-</body>
-</html>
+
+    <footer>
+        <a href="/logout">Sair</a>
+   
