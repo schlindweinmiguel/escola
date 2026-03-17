@@ -1,38 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colégio São Cristóvão</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+      border-radius: 12px;
+      width: 300px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #5a67d8;
+    }
+  </style>
 </head>
-
 <body>
-    <header>
-        <h1>Colégio São Cristóvão</h1>
-        <p>Ensino de qualidade para um futuro brilhante</p>
-    </header>
 
-    <section>
-        <h2>História da Escola</h2>
-        <p>Fundada em 1990, o Colégio São Cristóvão é uma instituição comprometida com a educação de qualidade...</p>
-    </section>
+<div class="container">
+  <h2>Login</h2>
+  <input type="text" id="user" placeholder="Usuário">
+  <input type="password" id="pass" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <p id="msg"></p>
+</div>
 
-    <section>
-        <h2>Fotos da Escola</h2>
-        <img src="/static/images/escola1.jpg" alt="Imagem da escola" width="300">
-        <img src="/static/images/escola2.jpg" alt="Imagem da escola" width="300">
-    </section>
+<script>
+function login(){
+  const user = document.getElementById('user').value;
+  const pass = document.getElementById('pass').value;
 
-    <section>
-        <a href="/login">Login</a>
-    </section>
+  if(user === 'admin' && pass === '123'){
+    localStorage.setItem('auth', 'true');
+    window.location.href = 'dashboard.html';
+  } else {
+    document.getElementById('msg').innerText = 'Login inválido';
+  }
+}
+</script>
 
-    <footer>
-        <p>&copy; 2025 Colégio São Cristóvão. Todos os direitos reservados.</p>
-    </footer>
-    <script src="/static/js/script.js"></script>
 </body>
-
 </html>
+
