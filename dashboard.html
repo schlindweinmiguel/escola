@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h2>Painel de Reclamações</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Aluno</th>
+                <th>Descrição</th>
+                <th>Imagem</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reclamacao in reclamacoes %}
+            <tr>
+                <td>{{ reclamacao['id'] }}</td>
+                <td>{{ reclamacao['aluno_id'] }}</td>
+                <td>{{ reclamacao['descricao'] }}</td>
+                <td><img src="/static/images/{{ reclamacao['imagem'] }}" width="100"></td>
+                <td>{{ reclam
