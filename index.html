@@ -2,68 +2,43 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Login</title>
-
-  <style>
-    body {
-      font-family: Arial;
-      background: #007bff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
-    .box {
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      text-align: center;
-      width: 300px;
-    }
-
-    input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-  </style>
+  <title>Escola</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <div class="box">
-    <h2>Login</h2>
-    <input type="text" id="user" placeholder="Usuário">
-    <input type="password" id="pass" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
+<div class="navbar">
+  <h2>Minha Escola</h2>
+  <div>
+    <a href="login.html">Login</a>
+    <a href="cadastro.html">Cadastro</a>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Bem-vindo à Nossa Escola</h1>
+</div>
+
+<div class="container">
+  <div class="card">
+    <h2>História da Escola</h2>
+    <p>
+      Nossa escola foi fundada com o objetivo de oferecer ensino de qualidade,
+      formando cidadãos preparados para o futuro. Ao longo dos anos,
+      construímos uma trajetória de excelência.
+    </p>
   </div>
 
-  <script>
-    function login(){
-      let user = document.getElementById('user').value;
-      let pass = document.getElementById('pass').value;
-
-      if(user === "admin" && pass === "123"){
-        localStorage.setItem('auth', 'true');
-        window.location.href = "dashboard.html";
-      } else {
-        alert("Login inválido!");
-      }
-    }
-  </script>
+  <div class="card">
+    <h2>Sobre a Escola</h2>
+    <p>
+      Contamos com estrutura moderna, professores qualificados
+      e diversas atividades para o desenvolvimento dos alunos.
+    </p>
+    <img src="img/escola2.jpg">
+  </div>
+</div>
 
 </body>
 </html>
