@@ -2,156 +2,68 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Sistema Escolar</title>
+<title>Login Escolar</title>
+
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+
 <style>
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  margin: 0;
+body{
+  font-family: Arial;
+  background: linear-gradient(135deg,#4facfe,#00f2fe);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
 }
-.container {
-  width: 350px;
-  margin: 80px auto;
-  background: white;
-  padding: 25px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+.box{
+  background:white;
+  padding:30px;
+  border-radius:15px;
+  text-align:center;
 }
-h2 {
-  text-align: center;
-}
-input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #4facfe;
-  color: white;
-  cursor: pointer;
-}
-button:hover {
-  background: #00c6ff;
-}
-.link {
-  text-align: center;
-  margin-top: 10px;
-  cursor: pointer;
-  color: #4facfe;
-}
-.card {
-  background: white;
-  padding: 15px;
-  margin-top: 10px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+button{
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#4facfe;
+  color:white;
+  cursor:pointer;
 }
 </style>
 </head>
+
 <body>
 
-<div class="container" id="loginBox">
-  <h2>Login</h2>
-  <input type="text" id="loginUser" placeholder="Usuário">
-  <input type="password" id="loginPass" placeholder="Senha">
-  <button onclick="login()">Entrar</button>
-  <div class="link" onclick="mostrarCadastro()">Criar conta</div>
-  <p id="msg"></p>
-</div>
-
-<div class="container" id="cadastroBox" style="display:none;">
-  <h2>Cadastro</h2>
-  <input type="text" id="cadUser" placeholder="Usuário">
-  <input type="password" id="cadPass" placeholder="Senha">
-  <button onclick="cadastrar()">Cadastrar</button>
-  <div class="link" onclick="mostrarLogin()">Voltar</div>
-</div>
-
-<div class="container" id="painel" style="display:none; width:600px;">
-  <h2>Reclamações</h2>
-  <textarea id="reclamacao" placeholder="Descreva o problema..."></textarea>
-  <input type="file" id="foto" accept="image/*">
-  <button onclick="salvar()">Enviar</button>
-  <div id="lista"></div>
+<div class="box">
+  <h2>Entrar com Google</h2>
+  <button onclick="login()">Login</button>
 </div>
 
 <script>
-function mostrarCadastro(){
-  document.getElementById('loginBox').style.display = 'none';
-  document.getElementById('cadastroBox').style.display = 'block';
-}
+const firebaseConfig = {
+  apiKey: "SUA_KEY",
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+  projectId: "SEU_PROJETO",
+};
 
-function mostrarLogin(){
-  document.getElementById('cadastroBox').style.display = 'none';
-  document.getElementById('loginBox').style.display = 'block';
-}
-
-function cadastrar(){
-  let user = document.getElementById('cadUser').value;
-  let pass = document.getElementById('cadPass').value;
-
-  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-  usuarios.push({user, pass});
-  localStorage.setItem('usuarios', JSON.stringify(usuarios));
-
-  alert('Cadastro realizado!');
-  mostrarLogin();
-}
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
 function login(){
-  let user = document.getElementById('loginUser').value;
-  let pass = document.getElementById('loginPass').value;
+  const provider = new firebase.auth.GoogleAuthProvider();
 
-  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-  let valido = usuarios.find(u => u.user === user && u.pass === pass);
+  auth.signInWithPopup(provider).then(result => {
+    let email = result.user.email;
 
-  if(valido){
-    document.getElementById('loginBox').style.display = 'none';
-    document.getElementById('painel').style.display = 'block';
-    mostrar();
-  } else {
-    document.getElementById('msg').innerText = 'Login inválido';
-  }
-}
-
-function salvar(){
-  let texto = document.getElementById('reclamacao').value;
-  let arquivo = document.getElementById('foto').files[0];
-  let lista = JSON.parse(localStorage.getItem('dados')) || [];
-
-  if(arquivo){
-    let reader = new FileReader();
-    reader.onload = function(e){
-      lista.push({texto: texto, imagem: e.target.result});
-      localStorage.setItem('dados', JSON.stringify(lista));
-      mostrar();
+    if(!email.endsWith("@escola.pr.gov.br")){
+      alert("Use seu email escolar!");
+      auth.signOut();
+      return;
     }
-    reader.readAsDataURL(arquivo);
-  } else {
-    lista.push({texto: texto, imagem: null});
-    localStorage.setItem('dados', JSON.stringify(lista));
-    mostrar();
-  }
-}
 
-function mostrar(){
-  let lista = JSON.parse(localStorage.getItem('dados')) || [];
-  let div = document.getElementById('lista');
-  div.innerHTML = '';
-
-  lista.forEach((item) => {
-    div.innerHTML += `
-      <div class='card'>
-        <p>${item.texto}</p>
-        ${item.imagem ? `<img src="${item.imagem}" style="width:100%; max-width:300px; border-radius:8px;">` : ''}
-      </div>
-    `;
+    localStorage.setItem("userEmail", email);
+    window.location.href = "dashboard.html";
   });
 }
 </script>
