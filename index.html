@@ -2,44 +2,145 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Escola</title>
-<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escola Estadual</title>
 
 <style>
-/* EXTRA DESIGN TOP */
-.galeria {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  gap: 15px;
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial;
 }
 
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  color: white;
+  z-index: 1000;
+}
+
+.navbar a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.navbar a:hover {
+  color: #00d4ff;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: url("img/1.jpg") center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 60px;
+  background: rgba(0,0,0,0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* CONTAINER */
+.container {
+  padding: 80px 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+/* CARD */
+.card {
+  background: white;
+  padding: 25px;
+  margin: 20px 0;
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+/* GALERIA */
 .galeria img {
+  width: 100%;
   height: 200px;
   object-fit: cover;
-  transition: 0.3s;
+  border-radius: 10px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .galeria img:hover {
   transform: scale(1.05);
 }
 
+/* BOTÕES */
 .btn {
-  display: inline-block;
-  padding: 10px 20px;
   background: #004aad;
   color: white;
+  padding: 10px 20px;
   border-radius: 8px;
-  margin: 5px;
+  display: inline-block;
+  margin-top: 10px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.dark {
+.btn:hover {
+  background: #002f6c;
+}
+
+/* FOOTER */
+.footer {
   background: #111;
   color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* MODAL */
+#modal {
+  display: none;
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#000a;
+  justify-content:center;
+  align-items:center;
+}
+
+#modal img {
+  max-width:80%;
+  border-radius:10px;
 }
 </style>
-
 </head>
 
 <body>
@@ -55,107 +156,94 @@
 
 <!-- HERO -->
 <div class="hero">
-  <h1>Educação que transforma vidas</h1>
+  <h1>Transformando o futuro através da educação</h1>
 </div>
 
-<!-- CONTEUDO -->
+<!-- CONTEÚDO -->
 <div class="container">
-
-  <!-- HISTORIA -->
-  <div class="card">
-    <h2>📖 História da Escola</h2>
-    <p>
-      Nossa escola foi fundada há muitos anos com o objetivo de transformar vidas através da educação.
-      Hoje somos referência em ensino, inovação e desenvolvimento de jovens.
-    </p>
-  </div>
 
   <!-- SOBRE -->
   <div class="card">
-    <h2>🏫 Estrutura</h2>
+    <h2>📖 Nossa História</h2>
     <p>
-      Contamos com salas modernas, laboratório de informática, biblioteca e quadras esportivas.
+      Fundada com o propósito de educar e transformar vidas, nossa escola
+      vem construindo um legado de excelência e inovação no ensino.
     </p>
+  </div>
+
+  <!-- DIFERENCIAIS -->
+  <div class="grid">
+    <div class="card">
+      <h3>📚 Ensino de Qualidade</h3>
+      <p>Professores capacitados e metodologia moderna.</p>
+    </div>
+
+    <div class="card">
+      <h3>💻 Tecnologia</h3>
+      <p>Laboratórios equipados e ensino digital.</p>
+    </div>
+
+    <div class="card">
+      <h3>⚽ Esportes</h3>
+      <p>Atividades físicas e competições escolares.</p>
+    </div>
   </div>
 
   <!-- GALERIA -->
   <div class="card">
-    <h2>📸 Galeria da Escola</h2>
-    <div class="galeria">
-      <img src="img/1.jpg" onclick="verImagem(this.src)">
-      <img src="img/2.jpg" onclick="verImagem(this.src)">
-      <img src="img/3.jpg" onclick="verImagem(this.src)">
-      <img src="img/4.jpg" onclick="verImagem(this.src)">
+    <h2>📸 Galeria</h2>
+    <div class="grid galeria">
+      <img src="1.jpg" onclick="abrir(this.src)">
+      <img src="2.jpg" onclick="abrir(this.src)">
+      <img src="3.jpg" onclick="abrir(this.src)">
+      <img src="4.jpg" onclick="abrir(this.src)">
     </div>
   </div>
 
-  <!-- FUNÇÕES -->
+  <!-- INTERAÇÃO -->
   <div class="card">
-    <h2>⚡ Funções Interativas</h2>
-
-    <button class="btn" onclick="modoEscuro()">🌙 Modo Escuro</button>
-    <button class="btn" onclick="mostrarMensagem()">💬 Mensagem</button>
-    <button class="btn" onclick="verData()">📅 Ver Data</button>
-    <button class="btn" onclick="infoSistema()">ℹ️ Info Sistema</button>
-
+    <h2>⚡ Interatividade</h2>
+    <button class="btn" onclick="mensagem()">Mensagem</button>
+    <button class="btn" onclick="data()">Data</button>
+    <button class="btn" onclick="modo()">Modo Escuro</button>
     <p id="saida"></p>
   </div>
 
-  <!-- NOTICIAS -->
-  <div class="card">
-    <h2>📰 Notícias</h2>
-    <button class="btn" onclick="carregarNoticias()">Carregar Notícias</button>
-    <div id="noticias"></div>
-  </div>
-
 </div>
 
-<!-- MODAL IMAGEM -->
-<div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000a; justify-content:center; align-items:center;">
-  <img id="imgModal" style="max-width:80%; border-radius:10px;">
+<!-- MODAL -->
+<div id="modal" onclick="fechar()">
+  <img id="imgModal">
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  © 2026 Escola Estadual - Todos os direitos reservados
 </div>
 
 <script>
-// MODAL IMAGEM
-function verImagem(src){
-  document.getElementById('modal').style.display = "flex";
-  document.getElementById('imgModal').src = src;
+// MODAL
+function abrir(src){
+  document.getElementById("modal").style.display = "flex";
+  document.getElementById("imgModal").src = src;
 }
 
-document.getElementById('modal').onclick = () => {
-  document.getElementById('modal').style.display = "none";
+function fechar(){
+  document.getElementById("modal").style.display = "none";
 }
 
-// MODO ESCURO
-function modoEscuro(){
-  document.body.classList.toggle("dark");
+// FUNÇÕES
+function mensagem(){
+  document.getElementById("saida").innerText = "Bem-vindo ao sistema!";
 }
 
-// MENSAGEM
-function mostrarMensagem(){
-  document.getElementById('saida').innerText = "Bem-vindo ao sistema escolar!";
+function data(){
+  document.getElementById("saida").innerText = new Date().toLocaleString();
 }
 
-// DATA
-function verData(){
-  let data = new Date();
-  document.getElementById('saida').innerText = data.toLocaleString();
-}
-
-// INFO
-function infoSistema(){
-  document.getElementById('saida').innerText =
-    "Sistema escolar versão 1.0 - Desenvolvido por você 😎";
-}
-
-// NOTICIAS FAKE
-function carregarNoticias(){
-  let noticias = `
-    <p>📢 Feira de ciências chegando!</p>
-    <p>⚽ Campeonato escolar aberto!</p>
-    <p>📚 Semana de provas iniciando</p>
-  `;
-  document.getElementById('noticias').innerHTML = noticias;
+function modo(){
+  document.body.style.background =
+    document.body.style.background === "black" ? "white" : "black";
 }
 </script>
 
