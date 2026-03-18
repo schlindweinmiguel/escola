@@ -1,72 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Login Escolar</title>
+  <meta charset="UTF-8">
+  <title>Login</title>
 
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      background: #007bff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-<style>
-body{
-  font-family: Arial;
-  background: linear-gradient(135deg,#4facfe,#00f2fe);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
-.box{
-  background:white;
-  padding:30px;
-  border-radius:15px;
-  text-align:center;
-}
-button{
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  background:#4facfe;
-  color:white;
-  cursor:pointer;
-}
-</style>
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="box">
-  <h2>Entrar com Google</h2>
-  <button onclick="login()">Login</button>
-</div>
+  <div class="box">
+    <h2>Login</h2>
+    <input type="text" id="user" placeholder="Usuário">
+    <input type="password" id="pass" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
+  </div>
 
-<script>
-const firebaseConfig = {
-  apiKey: "SUA_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  projectId: "SEU_PROJETO",
-};
+  <script>
+    function login(){
+      let user = document.getElementById('user').value;
+      let pass = document.getElementById('pass').value;
 
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-function login(){
-  const provider = new firebase.auth.GoogleAuthProvider();
-
-  auth.signInWithPopup(provider).then(result => {
-    let email = result.user.email;
-
-    if(!email.endsWith("@escola.pr.gov.br")){
-      alert("Use seu email escolar!");
-      auth.signOut();
-      return;
+      if(user === "admin" && pass === "123"){
+        localStorage.setItem('auth', 'true');
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Login inválido!");
+      }
     }
-
-    localStorage.setItem("userEmail", email);
-    window.location.href = "dashboard.html";
-  });
-}
-</script>
+  </script>
 
 </body>
 </html>
