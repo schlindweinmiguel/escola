@@ -2,93 +2,29 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard</title>
-
-  <style>
-    body {
-      font-family: Arial;
-      background: #f4f6f9;
-      padding: 20px;
-    }
-
-    textarea {
-      width: 100%;
-      height: 100px;
-      padding: 10px;
-      border-radius: 8px;
-    }
-
-    button {
-      padding: 10px;
-      margin-top: 10px;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 8px;
-    }
-
-    .card {
-      background: white;
-      padding: 15px;
-      margin-top: 10px;
-      border-radius: 10px;
-    }
-  </style>
+  <title>Reclamações</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <h3>Nova Reclamação</h3>
-  <textarea id="reclamacao"></textarea>
+<div class="navbar">
+  <h2>Painel</h2>
+  <a href="index.html" onclick="logout()">Sair</a>
+</div>
+
+<div class="container">
+
+  <h2>Nova Reclamação</h2>
+  <textarea id="texto"></textarea>
   <input type="file" id="foto">
-  <br>
   <button onclick="salvar()">Enviar</button>
 
-  <h3>Reclamações</h3>
+  <h2>Reclamações</h2>
   <div id="lista"></div>
 
-  <script>
-    if(localStorage.getItem('auth') !== 'true'){
-      window.location.href = 'index.html';
-    }
+</div>
 
-    function salvar(){
-      let texto = document.getElementById('reclamacao').value;
-      let arquivo = document.getElementById('foto').files[0];
-      let lista = JSON.parse(localStorage.getItem('dados')) || [];
-
-      if(arquivo){
-        let reader = new FileReader();
-        reader.onload = function(e){
-          lista.push({texto: texto, imagem: e.target.result});
-          localStorage.setItem('dados', JSON.stringify(lista));
-          mostrar();
-        }
-        reader.readAsDataURL(arquivo);
-      } else {
-        lista.push({texto: texto, imagem: null});
-        localStorage.setItem('dados', JSON.stringify(lista));
-        mostrar();
-      }
-    }
-
-    function mostrar(){
-      let lista = JSON.parse(localStorage.getItem('dados')) || [];
-      let div = document.getElementById('lista');
-      div.innerHTML = '';
-
-      lista.forEach((item) => {
-        div.innerHTML += `
-          <div class="card">
-            <p>${item.texto}</p>
-            ${item.imagem ? `<img src="${item.imagem}" width="200">` : ''}
-          </div>
-        `;
-      });
-    }
-
-    mostrar();
-  </script>
-
+<script src="script.js"></script>
 </body>
 </html>
