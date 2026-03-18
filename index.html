@@ -1,44 +1,163 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Escola</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Escola</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* EXTRA DESIGN TOP */
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 15px;
+}
+
+.galeria img {
+  height: 200px;
+  object-fit: cover;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.galeria img:hover {
+  transform: scale(1.05);
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #004aad;
+  color: white;
+  border-radius: 8px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.dark {
+  background: #111;
+  color: white;
+}
+</style>
+
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <div class="navbar">
-  <h2>Minha Escola</h2>
+  <h2>🏫 Escola Estadual</h2>
   <div>
     <a href="login.html">Login</a>
     <a href="cadastro.html">Cadastro</a>
   </div>
 </div>
 
+<!-- HERO -->
 <div class="hero">
-  <h1>Bem-vindo à Nossa Escola</h1>
+  <h1>Educação que transforma vidas</h1>
 </div>
 
+<!-- CONTEUDO -->
 <div class="container">
+
+  <!-- HISTORIA -->
   <div class="card">
-    <h2>História da Escola</h2>
+    <h2>📖 História da Escola</h2>
     <p>
-      Nossa escola foi fundada com o objetivo de oferecer ensino de qualidade,
-      formando cidadãos preparados para o futuro. Ao longo dos anos,
-      construímos uma trajetória de excelência.
+      Nossa escola foi fundada há muitos anos com o objetivo de transformar vidas através da educação.
+      Hoje somos referência em ensino, inovação e desenvolvimento de jovens.
     </p>
   </div>
 
+  <!-- SOBRE -->
   <div class="card">
-    <h2>Sobre a Escola</h2>
+    <h2>🏫 Estrutura</h2>
     <p>
-      Contamos com estrutura moderna, professores qualificados
-      e diversas atividades para o desenvolvimento dos alunos.
+      Contamos com salas modernas, laboratório de informática, biblioteca e quadras esportivas.
     </p>
-    <img src="img/escola2.jpg">
   </div>
+
+  <!-- GALERIA -->
+  <div class="card">
+    <h2>📸 Galeria da Escola</h2>
+    <div class="galeria">
+      <img src="img/1.jpg" onclick="verImagem(this.src)">
+      <img src="img/2.jpg" onclick="verImagem(this.src)">
+      <img src="img/3.jpg" onclick="verImagem(this.src)">
+      <img src="img/4.jpg" onclick="verImagem(this.src)">
+    </div>
+  </div>
+
+  <!-- FUNÇÕES -->
+  <div class="card">
+    <h2>⚡ Funções Interativas</h2>
+
+    <button class="btn" onclick="modoEscuro()">🌙 Modo Escuro</button>
+    <button class="btn" onclick="mostrarMensagem()">💬 Mensagem</button>
+    <button class="btn" onclick="verData()">📅 Ver Data</button>
+    <button class="btn" onclick="infoSistema()">ℹ️ Info Sistema</button>
+
+    <p id="saida"></p>
+  </div>
+
+  <!-- NOTICIAS -->
+  <div class="card">
+    <h2>📰 Notícias</h2>
+    <button class="btn" onclick="carregarNoticias()">Carregar Notícias</button>
+    <div id="noticias"></div>
+  </div>
+
 </div>
+
+<!-- MODAL IMAGEM -->
+<div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000a; justify-content:center; align-items:center;">
+  <img id="imgModal" style="max-width:80%; border-radius:10px;">
+</div>
+
+<script>
+// MODAL IMAGEM
+function verImagem(src){
+  document.getElementById('modal').style.display = "flex";
+  document.getElementById('imgModal').src = src;
+}
+
+document.getElementById('modal').onclick = () => {
+  document.getElementById('modal').style.display = "none";
+}
+
+// MODO ESCURO
+function modoEscuro(){
+  document.body.classList.toggle("dark");
+}
+
+// MENSAGEM
+function mostrarMensagem(){
+  document.getElementById('saida').innerText = "Bem-vindo ao sistema escolar!";
+}
+
+// DATA
+function verData(){
+  let data = new Date();
+  document.getElementById('saida').innerText = data.toLocaleString();
+}
+
+// INFO
+function infoSistema(){
+  document.getElementById('saida').innerText =
+    "Sistema escolar versão 1.0 - Desenvolvido por você 😎";
+}
+
+// NOTICIAS FAKE
+function carregarNoticias(){
+  let noticias = `
+    <p>📢 Feira de ciências chegando!</p>
+    <p>⚽ Campeonato escolar aberto!</p>
+    <p>📚 Semana de provas iniciando</p>
+  `;
+  document.getElementById('noticias').innerHTML = noticias;
+}
+</script>
 
 </body>
 </html>
