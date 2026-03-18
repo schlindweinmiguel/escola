@@ -1,126 +1,94 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Painel</title>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
 
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f6f9;
+      padding: 20px;
+    }
 
-<style>
-body{
-  font-family: Arial;
-  background:#f0f2f5;
-  padding:20px;
-}
-textarea, input{
-  width:100%;
-  padding:10px;
-  margin:10px 0;
-}
-button{
-  padding:10px;
-  background:#4facfe;
-  color:white;
-  border:none;
-  border-radius:8px;
-}
-.card{
-  background:white;
-  padding:15px;
-  margin-top:10px;
-  border-radius:10px;
-}
-</style>
+    textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 10px;
+      margin-top: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+  </style>
 </head>
 
 <body>
 
-<h2>Painel de Reclamações</h2>
-
-<div id="form">
-  <textarea id="reclamacao" placeholder="Descreva o problema"></textarea>
+  <h3>Nova Reclamação</h3>
+  <textarea id="reclamacao"></textarea>
   <input type="file" id="foto">
-  <button onclick="enviar()">Enviar</button>
-</div>
+  <br>
+  <button onclick="salvar()">Enviar</button>
 
-<div id="admin" style="display:none;">
-  <h3>Todas reclamações</h3>
+  <h3>Reclamações</h3>
   <div id="lista"></div>
-</div>
 
-<script>
-const firebaseConfig = {
-  apiKey: "SUA_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  projectId: "SEU_PROJETO",
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-let email = localStorage.getItem("userEmail");
-
-if(!email){
-  window.location.href = "index.html";
-}
-
-// 👑 ADMIN
-if(email === "m.schlindwein@escola.pr.gov.br"){
-  document.getElementById("admin").style.display = "block";
-  carregar();
-}
-
-function enviar(){
-  let texto = document.getElementById("reclamacao").value;
-  let arquivo = document.getElementById("foto").files[0];
-
-  if(!texto){
-    alert("Digite algo!");
-    return;
-  }
-
-  if(arquivo){
-    let reader = new FileReader();
-    reader.onload = function(e){
-      salvar(texto, e.target.result);
+  <script>
+    if(localStorage.getItem('auth') !== 'true'){
+      window.location.href = 'index.html';
     }
-    reader.readAsDataURL(arquivo);
-  }else{
-    salvar(texto, null);
-  }
-}
 
-function salvar(texto, imagem){
-  db.collection("reclamacoes").add({
-    texto: texto,
-    imagem: imagem,
-    email: email,
-    data: new Date()
-  });
+    function salvar(){
+      let texto = document.getElementById('reclamacao').value;
+      let arquivo = document.getElementById('foto').files[0];
+      let lista = JSON.parse(localStorage.getItem('dados')) || [];
 
-  alert("Enviado!");
-}
+      if(arquivo){
+        let reader = new FileReader();
+        reader.onload = function(e){
+          lista.push({texto: texto, imagem: e.target.result});
+          localStorage.setItem('dados', JSON.stringify(lista));
+          mostrar();
+        }
+        reader.readAsDataURL(arquivo);
+      } else {
+        lista.push({texto: texto, imagem: null});
+        localStorage.setItem('dados', JSON.stringify(lista));
+        mostrar();
+      }
+    }
 
-function carregar(){
-  db.collection("reclamacoes").onSnapshot(snapshot => {
-    let div = document.getElementById("lista");
-    div.innerHTML = "";
+    function mostrar(){
+      let lista = JSON.parse(localStorage.getItem('dados')) || [];
+      let div = document.getElementById('lista');
+      div.innerHTML = '';
 
-    snapshot.forEach(doc => {
-      let item = doc.data();
+      lista.forEach((item) => {
+        div.innerHTML += `
+          <div class="card">
+            <p>${item.texto}</p>
+            ${item.imagem ? `<img src="${item.imagem}" width="200">` : ''}
+          </div>
+        `;
+      });
+    }
 
-      div.innerHTML += `
-        <div class="card">
-          <p><b>${item.email}</b></p>
-          <p>${item.texto}</p>
-          ${item.imagem ? `<img src="${item.imagem}" style="max-width:300px;">` : ""}
-        </div>
-      `;
-    });
-  });
-}
-</script>
+    mostrar();
+  </script>
 
 </body>
 </html>
