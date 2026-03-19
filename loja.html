@@ -1,83 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Loja do Colégio</title>
-
-<style>
-body {font-family: Arial; background:#f4f6f9;}
-
-.navbar {
-  background:#000;
-  color:white;
-  padding:15px;
-  display:flex;
-  justify-content:space-between;
-}
-
-.grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-  gap:20px;
-  padding:20px;
-}
-
-.produto {
-  background:white;
-  padding:15px;
-  border-radius:10px;
-  text-align:center;
-}
-
-button {
-  background:#004aad;
-  color:white;
-  border:none;
-  padding:10px;
-  border-radius:8px;
-  cursor:pointer;
-}
-</style>
+<title>Loja</title>
 </head>
-
 <body>
 
-<div class="navbar">
-  <h2>🛒 Loja Escolar</h2>
-  <a href="index.html">Voltar</a>
-</div>
+<h2>Loja</h2>
 
-<div class="grid">
+<button onclick="adicionar('Camiseta',50)">Camiseta</button>
+<button onclick="adicionar('Calça',120)">Calça</button>
+<button onclick="adicionar('Moletom',150)">Moletom</button>
 
-  <div class="produto">
-    <h3>Camiseta</h3>
-    <p>R$ 50</p>
-    <button onclick="comprar('Camiseta')">Comprar</button>
-  </div>
-
-  <div class="produto">
-    <h3>Calça</h3>
-    <p>R$ 120</p>
-    <button onclick="comprar('Calça')">Comprar</button>
-  </div>
-
-  <div class="produto">
-    <h3>Moletom</h3>
-    <p>R$ 150</p>
-    <button onclick="comprar('Moletom')">Comprar</button>
-  </div>
-
-  <div class="produto">
-    <h3>Bermuda</h3>
-    <p>R$ 80</p>
-    <button onclick="comprar('Bermuda')">Comprar</button>
-  </div>
-
-</div>
+<br><br>
+<button onclick="verCarrinho()">🛒 Ver Carrinho</button>
 
 <script>
-function comprar(produto){
-  alert("Você comprou: " + produto);
+function adicionar(nome, preco){
+  let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  carrinho.push({nome, preco});
+  localStorage.setItem('carrinho', JSON.stringify(carrinho));
+  alert("Adicionado!");
+}
+
+function verCarrinho(){
+  let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  let total = 0;
+  let texto = "";
+
+  carrinho.forEach(i => {
+    texto += i.nome + " - R$" + i.preco + "\n";
+    total += i.preco;
+  });
+
+  alert(texto + "\nTotal: R$" + total);
 }
 </script>
 
