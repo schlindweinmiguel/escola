@@ -1,23 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Cadastro</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Cadastro</title>
 </head>
-
 <body>
 
-<div class="form-box">
-  <h2>Cadastro</h2>
+<h2>Cadastro</h2>
+<input id="email" placeholder="Email escolar">
+<input id="senha" type="password">
+<input id="data" type="date">
+<input id="cgm" placeholder="CGM">
 
-  <input type="email" id="email" placeholder="Email (@escola.pr.gov.br)">
-  <input type="password" id="senha" placeholder="Senha">
-  <input type="date" id="data">
-  <input type="text" id="cgm" placeholder="CGM">
-
-  <button onclick="cadastrar()">Cadastrar</button>
-</div>
+<button onclick="cadastrar()">Cadastrar</button>
 
 <script src="script.js"></script>
 </body>
