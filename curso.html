@@ -2,35 +2,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Curso</title>
+<title>Chat IA</title>
+
+<style>
+.chat {
+  width:300px;
+  margin:20px auto;
+  border:1px solid #ccc;
+  padding:10px;
+}
+#chatBox {
+  height:200px;
+  overflow:auto;
+}
+</style>
 </head>
+
 <body>
 
-<h2>Curso Técnico</h2>
-<p>Aprenda programação e tecnologia.</p>
+<h2>🤖 Chat com IA</h2>
 
-<div id="chat"></div>
-<input placeholder="Pergunte..." onkeypress="enviar(event)">
+<div class="chat">
+  <div id="chatBox"></div>
+  <input id="msg" placeholder="Digite..." onkeypress="enviar(event)">
+</div>
 
 <script>
-function responder(t){
-  t = t.toLowerCase();
-
-  if(t.includes("curso")) return "Curso de programação completo!";
-  if(t.includes("duração")) return "Dura 2 anos!";
-  if(t.includes("emprego")) return "Sim, prepara para o mercado!";
-  return "Não entendi.";
-}
-
-function enviar(e){
+async function enviar(e){
   if(e.key === "Enter"){
-    let input = e.target;
-    let chat = document.getElementById("chat");
+    let input = document.getElementById("msg");
+    let texto = input.value;
+    let chat = document.getElementById("chatBox");
 
-    chat.innerHTML += "<p>Você: "+input.value+"</p>";
-    chat.innerHTML += "<p>Bot: "+responder(input.value)+"</p>";
+    chat.innerHTML += `<p><b>Você:</b> ${texto}</p>`;
 
-    input.value="";
+    // CHAMANDO BACKEND
+    let res = await fetch("http://localhost:3000/chat", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({mensagem: texto})
+    });
+
+    let data = await res.json();
+
+    chat.innerHTML += `<p><b>IA:</b> ${data.resposta}</p>`;
+
+    input.value = "";
+    chat.scrollTop = chat.scrollHeight;
   }
 }
 </script>
