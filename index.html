@@ -2,142 +2,30 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escola Estadual</title>
+<title>Escola</title>
 
 <style>
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial;
-}
-
-/* NAVBAR */
+body {margin:0; font-family:Arial;}
 .navbar {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 40px;
-  color: white;
-  z-index: 1000;
+  background:#000;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
 }
-
-.navbar a {
-  color: white;
-  margin-left: 15px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.navbar a:hover {
-  color: #00d4ff;
-}
-
-/* HERO */
 .hero {
-  height: 100vh;
-  background: url("img/1.jpg") center/cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: white;
-}
-
-.hero h1 {
-  font-size: 60px;
-  background: rgba(0,0,0,0.5);
-  padding: 20px;
-  border-radius: 10px;
-}
-
-/* CONTAINER */
-.container {
-  padding: 80px 20px;
-  max-width: 1100px;
-  margin: auto;
-}
-
-/* CARD */
-.card {
-  background: white;
-  padding: 25px;
-  margin: 20px 0;
-  border-radius: 12px;
-  box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
-  transition: 0.3s;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-}
-
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap: 20px;
-}
-
-/* GALERIA */
-.galeria img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.galeria img:hover {
-  transform: scale(1.05);
-}
-
-/* BOTÕES */
-.btn {
-  background: #004aad;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  display: inline-block;
-  margin-top: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background: #002f6c;
-}
-
-/* FOOTER */
-.footer {
-  background: #111;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-/* MODAL */
-#modal {
-  display: none;
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:#000a;
+  height:90vh;
+  background:url("img/1.jpg") center/cover;
+  display:flex;
   justify-content:center;
   align-items:center;
+  color:white;
 }
-
-#modal img {
-  max-width:80%;
+.container {padding:30px;}
+.card {
+  background:white;
+  padding:20px;
+  margin:10px;
   border-radius:10px;
 }
 </style>
@@ -146,107 +34,25 @@
 <body>
 
 <div class="navbar">
-  <h2>🏫 Escola Futuro</h2>
+  <h2>🏫 Escola</h2>
   <div>
-    <a href="index.html">Início</a>
-    <a href="curso.html">Curso Técnico</a>
+    <a href="curso.html">Curso</a>
     <a href="loja.html">Loja</a>
     <a href="login.html">Login</a>
     <a href="cadastro.html">Cadastro</a>
   </div>
 </div>
-<!-- HERO -->
+
 <div class="hero">
-  <h1>Transformando o futuro através da educação</h1>
+  <h1>Educação que transforma</h1>
 </div>
 
-<!-- CONTEÚDO -->
 <div class="container">
-
-  <!-- SOBRE -->
   <div class="card">
-    <h2>📖 Nossa História</h2>
-    <p>
-      Fundada com o propósito de educar e transformar vidas, nossa escola
-      vem construindo um legado de excelência e inovação no ensino.
-    </p>
+    <h2>Sobre a Escola</h2>
+    <p>Ensino de qualidade com tecnologia e inovação.</p>
   </div>
-
-  <!-- DIFERENCIAIS -->
-  <div class="grid">
-    <div class="card">
-      <h3>📚 Ensino de Qualidade</h3>
-      <p>Professores capacitados e metodologia moderna.</p>
-    </div>
-
-    <div class="card">
-      <h3>💻 Tecnologia</h3>
-      <p>Laboratórios equipados e ensino digital.</p>
-    </div>
-
-    <div class="card">
-      <h3>⚽ Esportes</h3>
-      <p>Atividades físicas e competições escolares.</p>
-    </div>
-  </div>
-
-  <!-- GALERIA -->
-  <div class="card">
-    <h2>📸 Galeria</h2>
-    <div class="grid galeria">
-      <img src="1.jpg" onclick="abrir(this.src)">
-      <img src="2.jpg" onclick="abrir(this.src)">
-      <img src="3.jpg" onclick="abrir(this.src)">
-      <img src="4.jpg" onclick="abrir(this.src)">
-    </div>
-  </div>
-
-  <!-- INTERAÇÃO -->
-  <div class="card">
-    <h2>⚡ Interatividade</h2>
-    <button class="btn" onclick="mensagem()">Mensagem</button>
-    <button class="btn" onclick="data()">Data</button>
-    <button class="btn" onclick="modo()">Modo Escuro</button>
-    <p id="saida"></p>
-  </div>
-
 </div>
-
-<!-- MODAL -->
-<div id="modal" onclick="fechar()">
-  <img id="imgModal">
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-  © 2026 Escola Estadual - Todos os direitos reservados
-</div>
-
-<script>
-// MODAL
-function abrir(src){
-  document.getElementById("modal").style.display = "flex";
-  document.getElementById("imgModal").src = src;
-}
-
-function fechar(){
-  document.getElementById("modal").style.display = "none";
-}
-
-// FUNÇÕES
-function mensagem(){
-  document.getElementById("saida").innerText = "Bem-vindo ao sistema!";
-}
-
-function data(){
-  document.getElementById("saida").innerText = new Date().toLocaleString();
-}
-
-function modo(){
-  document.body.style.background =
-    document.body.style.background === "black" ? "white" : "black";
-}
-</script>
 
 </body>
 </html>
