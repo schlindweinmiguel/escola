@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Loja do Colégio</title>
+
+<style>
+body {font-family: Arial; background:#f4f6f9;}
+
+.navbar {
+  background:#000;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap:20px;
+  padding:20px;
+}
+
+.produto {
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+}
+
+button {
+  background:#004aad;
+  color:white;
+  border:none;
+  padding:10px;
+  border-radius:8px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <h2>🛒 Loja Escolar</h2>
+  <a href="index.html">Voltar</a>
+</div>
+
+<div class="grid">
+
+  <div class="produto">
+    <h3>Camiseta</h3>
+    <p>R$ 50</p>
+    <button onclick="comprar('Camiseta')">Comprar</button>
+  </div>
+
+  <div class="produto">
+    <h3>Calça</h3>
+    <p>R$ 120</p>
+    <button onclick="comprar('Calça')">Comprar</button>
+  </div>
+
+  <div class="produto">
+    <h3>Moletom</h3>
+    <p>R$ 150</p>
+    <button onclick="comprar('Moletom')">Comprar</button>
+  </div>
+
+  <div class="produto">
+    <h3>Bermuda</h3>
+    <p>R$ 80</p>
+    <button onclick="comprar('Bermuda')">Comprar</button>
+  </div>
+
+</div>
+
+<script>
+function comprar(produto){
+  alert("Você comprou: " + produto);
+}
+</script>
+
+</body>
+</html>
