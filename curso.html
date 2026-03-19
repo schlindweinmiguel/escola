@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Curso Técnico</title>
+
+<style>
+body {font-family: Arial;}
+
+.navbar {
+  background:#000;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+}
+
+.container {
+  padding:30px;
+}
+
+.chat {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:300px;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.chat-box {
+  height:200px;
+  overflow:auto;
+  padding:10px;
+}
+
+input {
+  width:100%;
+  padding:10px;
+  border:none;
+  border-top:1px solid #ccc;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <h2>💻 Curso Técnico</h2>
+  <a href="index.html">Voltar</a>
+</div>
+
+<div class="container">
+  <h2>Desenvolvimento de Sistemas</h2>
+  <p>
+    Nosso curso técnico ensina programação, criação de sites,
+    banco de dados e desenvolvimento de sistemas reais.
+  </p>
+</div>
+
+<!-- CHATBOT -->
+<div class="chat">
+  <div class="chat-box" id="chat"></div>
+  <input type="text" placeholder="Digite..." onkeypress="enviar(event)">
+</div>
+
+<script>
+
+function enviar(e){
+  if(e.key === "Enter"){
+    let input = e.target;
+    let texto = input.value;
+    let chat = document.getElementById("chat");
+
+    chat.innerHTML += "<p><b>Você:</b> " + texto + "</p>";
+
+    let resposta = "Não entendi.";
+
+    if(texto.includes("curso"))
+      resposta = "Nosso curso ensina programação!";
+    if(texto.includes("duração"))
+      resposta = "Dura em média 2 anos!";
+    if(texto.includes("linguagem"))
+      resposta = "Você aprende HTML, CSS, JS e mais!";
+
+    chat.innerHTML += "<p><b>Bot:</b> " + resposta + "</p>";
+
+    input.value = "";
+    chat.scrollTop = chat.scrollHeight;
+  }
+}
+
+</script>
+
+</body>
+</html>
