@@ -1,57 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Chat IA</title>
-
-<style>
-.chat {
-  width:300px;
-  margin:20px auto;
-  border:1px solid #ccc;
-  padding:10px;
-}
-#chatBox {
-  height:200px;
-  overflow:auto;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h2>🤖 Chat com IA</h2>
+<div class="container">
 
-<div class="chat">
-  <div id="chatBox"></div>
-  <input id="msg" placeholder="Digite..." onkeypress="enviar(event)">
+<h2>Curso</h2>
+
+<div class="chat-box" id="chat"></div>
+<input placeholder="Digite..." onkeypress="enviar(event)">
+
 </div>
 
-<script>
-async function enviar(e){
-  if(e.key === "Enter"){
-    let input = document.getElementById("msg");
-    let texto = input.value;
-    let chat = document.getElementById("chatBox");
-
-    chat.innerHTML += `<p><b>Você:</b> ${texto}</p>`;
-
-    // CHAMANDO BACKEND
-    let res = await fetch("http://localhost:3000/chat", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({mensagem: texto})
-    });
-
-    let data = await res.json();
-
-    chat.innerHTML += `<p><b>IA:</b> ${data.resposta}</p>`;
-
-    input.value = "";
-    chat.scrollTop = chat.scrollHeight;
-  }
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
