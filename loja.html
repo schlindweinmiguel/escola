@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Loja</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+<div class="container">
 
 <h2>Loja</h2>
 
-<button onclick="adicionar('Camiseta',50)">Camiseta</button>
-<button onclick="adicionar('Calça',120)">Calça</button>
-<button onclick="adicionar('Moletom',150)">Moletom</button>
+<div class="grid">
 
-<br><br>
-<button onclick="verCarrinho()">🛒 Ver Carrinho</button>
+<div class="card">
+<h3>Camiseta</h3>
+<button class="btn" onclick="addCarrinho('Camiseta',50)">Comprar</button>
+</div>
 
-<script>
-function adicionar(nome, preco){
-  let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-  carrinho.push({nome, preco});
-  localStorage.setItem('carrinho', JSON.stringify(carrinho));
-  alert("Adicionado!");
-}
+<div class="card">
+<h3>Moletom</h3>
+<button class="btn" onclick="addCarrinho('Moletom',150)">Comprar</button>
+</div>
 
-function verCarrinho(){
-  let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-  let total = 0;
-  let texto = "";
+</div>
 
-  carrinho.forEach(i => {
-    texto += i.nome + " - R$" + i.preco + "\n";
-    total += i.preco;
-  });
+<button class="btn" onclick="abrirCarrinho()">Carrinho</button>
 
-  alert(texto + "\nTotal: R$" + total);
-}
-</script>
+<div id="carrinho">
+<h3>Carrinho</h3>
+<div id="listaCarrinho"></div>
+</div>
 
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
