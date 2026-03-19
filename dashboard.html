@@ -1,45 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-<h2>Nova Reclamação</h2>
-<textarea id="texto"></textarea>
-<input type="file" id="foto">
-<button onclick="salvar()">Enviar</button>
+<div class="container">
 
 <h2>Reclamações</h2>
+
+<textarea id="texto"></textarea>
+<button onclick="salvar()">Enviar</button>
+
 <div id="lista"></div>
 
-<h2>📊 Gráfico</h2>
 <canvas id="grafico"></canvas>
+
+</div>
 
 <script src="script.js"></script>
 
 <script>
-function gerarGrafico(){
-  let lista = JSON.parse(localStorage.getItem('dados')) || [];
+mostrar();
 
-  let comFoto = lista.filter(i => i.imagem).length;
-  let semFoto = lista.length - comFoto;
+let dados=JSON.parse(localStorage.getItem("dados"))||[];
 
-  new Chart(document.getElementById('grafico'), {
-    type: 'bar',
-    data: {
-      labels: ['Com Foto', 'Sem Foto'],
-      datasets: [{
-        label: 'Reclamações',
-        data: [comFoto, semFoto]
-      }]
-    }
-  });
+new Chart(document.getElementById("grafico"),{
+type:"bar",
+data:{
+labels:["Reclamações"],
+datasets:[{data:[dados.length]}]
 }
-
-gerarGrafico();
+});
 </script>
 
 </body>
